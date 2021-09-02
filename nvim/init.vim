@@ -51,4 +51,4 @@ source $HOME/.config/nvim/keys/flutter-config.vim
 source $HOME/.config/nvim/keys/neovim-config.vim
 source $HOME/.config/nvim/keys/ranger-nvim-config.vim
 
-let g:indentLine_enabled = 0
+let g:indentLine_enabled = 1
