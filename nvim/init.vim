@@ -1,4 +1,5 @@
 call plug#begin('~/.vim/plugged')
+
 " Snippets
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -48,6 +49,6 @@ source $HOME/.config/nvim/keys/nerdtree-config.vim
 source $HOME/.config/nvim/keys/floaterm-config.vim
 source $HOME/.config/nvim/keys/lualine-config.vim
 source $HOME/.config/nvim/keys/flutter-config.vim
-source $HOME/.config/nvim/keys/neovim-config.vim
 source $HOME/.config/nvim/keys/ranger-nvim-config.vim
 source $HOME/.config/nvim/keys/indentline-config.vim
+source $HOME/.config/nvim/keys/neovim-config.vim
