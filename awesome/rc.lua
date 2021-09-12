@@ -23,8 +23,8 @@ local hotkeys_popup = require("awful.hotkeys_popup")
                       require("awful.hotkeys_popup.keys")
 local mytable       = awful.util.table or gears.table -- 4.{0,1} compatibility
 
+naughty.config.defaults['icon_size'] = 150
 -- }}}
-
 -- {{{ Error handling
 
 -- Check if awesome encountered an error during startup and fell back to
@@ -36,6 +36,7 @@ if awesome.startup_errors then
         text = awesome.startup_errors
     }
 end
+
 
 -- Handle runtime errors after startup
 do
@@ -67,7 +68,7 @@ local function run_once(cmd_arr)
     end
 end
 
-run_once({ "urxvtd", "unclutter -root" }) -- comma-separated entries
+-- run_once({ "urxvtd", "unclutter -root" }) -- comma-separated entries
 
 -- This function implements the XDG autostart specification
 --[[
@@ -103,12 +104,11 @@ local terminal     = "alacritty"
 local vi_focus     = false -- vi-like client focus https://github.com/lcpz/awesome-copycats/issues/275
 local cycle_prev   = true  -- cycle with only the previously focused client or all https://github.com/lcpz/awesome-copycats/issues/274
 local editor       = os.getenv("EDITOR") or "nvim"
-local browser      = "opera"
+local browser      = "firefox"
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "code", "web", "study", "file", "other" }
+awful.util.tagnames = { "code", "web", "study", "music", "other" }
 awful.layout.layouts = {
-    awful.layout.suit.floating,
     awful.layout.suit.tile,
     -- awful.layout.suit.tile.left,
     -- awful.layout.suit.tile.bottom,
@@ -315,8 +315,8 @@ globalkeys = mytable.join(
         {description = "focus right", group = "client"}),
 
     -- Menu
-    awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
-              {description = "show main menu", group = "awesome"}),
+    --awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
+    --         {description = "show main menu", group = "awesome"}),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
@@ -676,6 +676,9 @@ awful.rules.rules = {
      }
     },
 
+    { rule = { class = "Spotify" },
+      properties = { screen = 1, tag = "music", floating=true } },
+
     -- Floating clients.
     { rule_any = {
         instance = {
@@ -711,10 +714,6 @@ awful.rules.rules = {
     { rule_any = {type = { "normal", "dialog" }
       }, properties = { titlebars_enabled = false }
     },
-
-    -- Set Firefox to always map on the tag named "2" on screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { screen = 1, tag = "2" } },
 }
 
 -- }}}
@@ -786,15 +785,20 @@ end)
 -- client.connect_signal("mouse::enter", function(c)
 --     c:emit_signal("request::activate", "mouse_enter", {raise = vi_focus})
 -- end)
-
+-- }}}
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
-
--- }}}
-
+client.connect_signal("manage", function (c)
+  if c.class == nil then c.minimized = true
+    c:connect_signal("property::class", function ()
+      c.minimized = false
+      awful.rules.apply(c)
+    end)
+  end
+end)
 --Gaps
 beautiful.useless_gap = 5
 
 -- Autostart
-awful.spawn.with_shell("picom --config ~/.config/picom/picom.conf")
+awful.spawn.with_shell("picom --experimental-backends")
 awful.spawn.with_shell("nitrogen --set-zoom-fill --random ~/Images/wallpaper")
