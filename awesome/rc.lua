@@ -125,11 +125,12 @@ awful.layout.layouts = {
     --awful.layout.suit.corner.sw,
     --awful.layout.suit.corner.se,
     lain.layout.cascade,
+    awful.layout.suit.max,
+    lain.layout.termfair.center,
     --lain.layout.cascade.tile,
-    lain.layout.centerwork,
+    --lain.layout.centerwork,
     --lain.layout.centerwork.horizontal,
     lain.layout.termfair,
-    -- lain.layout.termfair.center
 }
 
 lain.layout.termfair.nmaster           = 3
@@ -249,9 +250,6 @@ globalkeys = mytable.join(
     awful.key({ modkey, "Shift" }, "p", function() awful.spawn.with_shell("flameshot gui -p ~/Images/screenshots") end,
               {description = "take a custom screenshot", group = "hotkeys"}),
   
-    awful.key({ "Control", "Shift" }, "q", function() awful.layout.set(lain.layout.cascade) awful.spawn.with_shell("~/Respitories/android-studio/android-studio/src/android-studio/bin/studio.sh") end,
-              {description = "start android-studio", group = "hotkeys"}),
-
     -- X screen locker
     awful.key({ altkey, "Control" }, "l", function () os.execute(scrlocker) end,
               {description = "lock screen", group = "hotkeys"}),
@@ -677,7 +675,7 @@ awful.rules.rules = {
     },
 
     { rule = { class = "Spotify" },
-      properties = { screen = 1, tag = "music", floating=true } },
+      properties = { screen = 1, tag = "music" } },
 
     -- Floating clients.
     { rule_any = {
@@ -781,6 +779,7 @@ client.connect_signal("request::titlebars", function(c)
     }
 end)
 
+awful.spawn.with_shell("nitrogen --set-zoom-fill --random ~/Images/wallpaper")
 -- Enable sloppy focus, so that focus follows mouse.
 -- client.connect_signal("mouse::enter", function(c)
 --     c:emit_signal("request::activate", "mouse_enter", {raise = vi_focus})
@@ -801,4 +800,4 @@ beautiful.useless_gap = 5
 
 -- Autostart
 awful.spawn.with_shell("picom --experimental-backends")
-awful.spawn.with_shell("nitrogen --set-zoom-fill --random ~/Images/wallpaper")
+awful.spawn.with_shell("ibus-daemon -drxR")
