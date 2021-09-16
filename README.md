@@ -10,11 +10,9 @@
 
 ## Preview
 Being a DIY(do it yourself) type of OS, Arch-Linux lacks most of the components that you would expect from a normal desktop environment but prove itself as a fully customizable system architecture where you choose what you want and suffer the cosequences of your decisions. Still, if you are willing to put in the hours, high chances are that you going to be able to convert a simple black terminal into a fuily functional workspace as such:
-<<<<<<< HEAD
+
 ![Failed to load image](https://i.imgur.com/bWP5Qbe.png) 
-=======
-![Failed to load image](https://i.imgur.com/bWP5Qbe.png)
->>>>>>> 4e4855a6c4c133af072bf76551d2b0195498b114
+
 ![Failed to load image](https://i.imgur.com/ShW5piM.png)
 
 ## Info
@@ -41,11 +39,9 @@ Being a DIY(do it yourself) type of OS, Arch-Linux lacks most of the components 
     - hoob3rt/lualine.nvim
     - kyazdani42/nvim-web-devicons
     - ryanoasis/vim-devicons
-<<<<<<< HEAD
+ 
 - [git](https://wiki.archlinux.org/title/git) 
-=======
 - [git](https://wiki.archlinux.org/title/git)
->>>>>>> 4e4855a6c4c133af072bf76551d2b0195498b114
 - [Picom](https://wiki.archlinux.org/title/Picom)
 - [Nitrogen](https://wiki.archlinux.org/title/Nitrogen)
 - [Flameshot](https://github.com/flameshot-org/flameshot)
@@ -62,21 +58,13 @@ Most of the packages and dependencies listed above can all be installed via pacm
 
 ## Installation
     git clone https://github.com/DragMaid/MyArchConfig-btw ~/.config/
-<<<<<<< HEAD
+
     
 ## Common issues :warning:
   - Pacman cannot find specific packages (Solution: disabling ipv6 seems to have worked for me | [reference](https://www.alpha-epsilon.de/linux/2017/07/26/disabling-ipv6-on-arch-linux-and-networkmanager/))
   - Unable to select nerd fonts for alacritty (Solution: Check if you downloaded the fonts in the correct directory (ususally in this path ~/.local/share/fonts/) or consider check the wiki [here](https://wiki.archlinux.org/title/fonts), also remember to get available valid fonts' name using the "fc-list" command) 
   - Unable to change Awesome gap/margin/padding (Solution: locate to your rc.lua within ~/.config/awesome folder and edit the useless_gap near the end of the file to what value you like)
   - Unable to connect to wifi (If you somehow couldn't connect to the wifi and are reading this respository through ethernet cables, consider revisiting your [network-configuration](https://wiki.archlinux.org/title/installation_guide#Ntwork_configuration) and make sure you have a network-manager([NetworkManager](https://wiki.archlinux.org/title/NetworkManager) as my recommendation) properly installed)  
-=======
-
-## Common issues :warning:
-  - Pacman cannot find specific packages (Solution: disabling ipv6 seems to have worked for me | [reference](https://www.alpha-epsilon.de/linux/2017/07/26/disabling-ipv6-on-arch-linux-and-networkmanager/))
-  - Unable to select nerd fonts for alacritty (Solution: Check if you downloaded the fonts in the correct directory (ususally in this path ~/.local/share/fonts/) or consider check the wiki [here](https://wiki.archlinux.org/title/fonts), also remember to get available valid fonts' name using the "fc-list" command)
-  - Unable to change Awesome gap/margin/padding (Solution: locate to your rc.lua within ~/.config/awesome folder and edit the useless_gap near the end of the file to what value you like)
-  - Unable to connect to wifi (If you somehow couldn't connect to the wifi and are reading this respository through ethernet cables, consider revisiting your [network-configuration](https://wiki.archlinux.org/title/installation_guide#Ntwork_configuration) and make sure you have a network-manager([NetworkManager](https://wiki.archlinux.org/title/NetworkManager) as my recommendation) properly installed)
->>>>>>> 4e4855a6c4c133af072bf76551d2b0195498b114
 
 <br />
 <br />
