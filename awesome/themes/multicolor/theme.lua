@@ -27,7 +27,7 @@ theme.fg_normal                                 = "#aaaaaa"
 theme.fg_focus                                  = "#ff8c00"
 theme.fg_urgent                                 = "#af1d18"
 theme.fg_minimize                               = "#ffffff"
-theme.border_width                              = dpi(1)
+theme.border_width                              = 0
 theme.border_normal                             = "#1c2022"
 theme.border_focus                              = "#606060"
 theme.border_marked                             = "#3ca4d8"
@@ -49,7 +49,7 @@ theme.widget_note_on                            = theme.confdir .. "/icons/note_
 theme.widget_netdown                            = theme.confdir .. "/icons/net_down.png"
 theme.widget_netup                              = theme.confdir .. "/icons/net_up.png"
 theme.widget_mail                               = theme.confdir .. "/icons/mail.png"
--- theme.widget_batt                               = theme.confdir .. "/icons/bat.png"
+theme.widget_batt                               = theme.confdir .. "/icons/bat.png"
 theme.widget_clock                              = theme.confdir .. "/icons/clock.png"
 theme.widget_vol                                = theme.confdir .. "/icons/spkr.png"
 --theme.taglist_squares_sel                       = theme.confdir .. "/icons/square_a.png"
@@ -64,7 +64,7 @@ theme.layout_tilebottom                         = theme.confdir .. "/icons/tileb
 theme.layout_tiletop                            = theme.confdir .. "/icons/tiletop.png"
 theme.layout_fairv                              = theme.confdir .. "/icons/fairv.png"
 theme.layout_fairh                              = theme.confdir .. "/icons/fairh.png"
-theme.layout_spiral                             = theme.confdir .. "/icons/spiral.png"
+theme.layout_spiral                             = theme.confdir .. "/icons/spiral.pn"
 theme.layout_dwindle                            = theme.confdir .. "/icons/dwindle.png"
 theme.layout_max                                = theme.confdir .. "/icons/max.png"
 theme.layout_fullscreen                         = theme.confdir .. "/icons/fullscreen.png"
@@ -93,24 +93,40 @@ theme.titlebar_maximized_button_focus_active    = theme.confdir .. "/icons/title
 
 local markup = lain.util.markup
 
+local spr = wibox.widget {
+    widget = wibox.widget.separator,
+    orientation = "vertical",
+    forced_width = 12, 
+    color = "#ffffff"
+}
+
+local cus = wibox.widget {
+    widget = wibox.widget.separator,
+    orientation = "vertical",
+    forced_width = 20, 
+    color = "#ffffff"
+}
+
 -- Textclock
 os.setlocale(os.getenv("LANG")) -- to localize the clock
 local clockicon = wibox.widget.imagebox(theme.widget_clock)
-local mytextclock = wibox.widget.textclock(markup("#00ff4c", "%A %d %B ") .. markup("#ab7367", ">") .. markup("#ff6200", " %H:%M "))
+local mytextclock = wibox.widget.textclock(markup("#7788af", "%A %d %B"))
+local mytextnumclock = wibox.widget.textclock(markup("#de5e1e", "%H:%M"))
 mytextclock.font = theme.font
+mytextnumclock.font = theme.font
 
 -- Calendar
-theme.cal = lain.widget.cal({
-    attach_to = { mytextclock },
-    notification_preset = {
-        font = "Terminus 10",
-        fg   = theme.fg_normal,
-        bg   = theme.bg_normal
-    }
-})
+--theme.cal = lain.widget.cal({
+    --attach_to = { mytextclock },
+    --notification_preset = {
+        --font = "Terminus 10",
+        --fg   = theme.fg_normal,
+        --bg   = theme.bg_normal
+    --}
+--})
 
 -- Weather
- -- to be set before use
+--[[ to be set before use
 local weathericon = wibox.widget.imagebox(theme.widget_weather)
 theme.weather = lain.widget.weather({
     city_id = 2643743, -- placeholder (London)
@@ -122,10 +138,10 @@ theme.weather = lain.widget.weather({
         widget:set_markup(markup.fontfg(theme.font, "#eca4c4", descr .. " @ " .. units .. "°C "))
     end
 })
-
+--]]
 
 -- / fs
- -- commented because it needs Gio/Glib >= 2.54
+--[[ commented because it needs Gio/Glib >= 2.54
 local fsicon = wibox.widget.imagebox(theme.widget_fs)
 theme.fs = lain.widget.fs({
     notification_preset = { font = "Terminus 10", fg = theme.fg_normal },
@@ -133,7 +149,7 @@ theme.fs = lain.widget.fs({
         widget:set_markup(markup.fontfg(theme.font, "#80d9d8", string.format("%.1f", fs_now["/"].used) .. "% "))
     end
 })
-
+--]]
 
 -- Mail IMAP check
 --[[ to be set before use
@@ -175,20 +191,20 @@ local temp = lain.widget.temp({
 })
 
 -- Battery
--- local baticon = wibox.widget.imagebox(theme.widget_batt)
--- local bat = lain.widget.bat({
---     settings = function()
---         local perc = bat_now.perc ~= "N/A" and bat_now.perc .. "%" or bat_now.perc
+local baticon = wibox.widget.imagebox(theme.widget_batt)
+local bat = lain.widget.bat({
+    settings = function()
+        local perc = bat_now.perc ~= "N/A" and bat_now.perc .. "%" or bat_now.perc
 
---         if bat_now.ac_status == 1 then
---             perc = perc .. " plug"
---         end
+        if bat_now.ac_status == 1 then
+            perc = perc .. " plug"
+        end
 
---         widget:set_markup(markup.fontfg(theme.font, theme.fg_normal, perc .. " "))
---     end
--- })
+        widget:set_markup(markup.fontfg(theme.font, theme.fg_normal, perc .. " "))
+    end
+})
 
--- -- ALSA volume
+-- ALSA volume
 local volicon = wibox.widget.imagebox(theme.widget_vol)
 theme.volume = lain.widget.alsa({
     settings = function()
@@ -297,8 +313,8 @@ function theme.at_screen_connect(s)
             --s.mylayoutbox,
             s.mytaglist,
             s.mypromptbox,
-            mpdicon,
-            theme.mpd.widget,
+            --mpdicon,
+            --theme.mpd.widget,
         },
         --s.mytasklist, -- Middle widget
         nil,
@@ -307,26 +323,33 @@ function theme.at_screen_connect(s)
             wibox.widget.systray(),
             --mailicon,
             --theme.mail.widget,
-            -- netdownicon,
-            -- netdowninfo,
-            -- netupicon,
-            -- netupinfo.widget,
+            --netdownicon,
+            --netdowninfo,
+            --netupicon,
+            --netupinfo.widget,
+	    spr,
+            volicon,
+            theme.volume.widget,
+	    spr,
             memicon,
             memory.widget,
+	    spr,
             cpuicon,
             cpu.widget,
             --fsicon,
             --theme.fs.widget,
             --weathericon,
             --theme.weather.widget,
+	    spr,
             tempicon,
             temp.widget,
-            volicon,
-            theme.volume.widget,
-            -- baticon,
-            -- bat.widget,
+            --baticon,
+            --bat.widget,
+	    spr,
             clockicon,
             mytextclock,
+	    cus,
+	    mytextnumclock
         },
     }
 

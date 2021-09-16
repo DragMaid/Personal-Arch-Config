@@ -779,7 +779,6 @@ client.connect_signal("request::titlebars", function(c)
     }
 end)
 
-awful.spawn.with_shell("nitrogen --set-zoom-fill --random ~/Images/wallpaper")
 -- Enable sloppy focus, so that focus follows mouse.
 -- client.connect_signal("mouse::enter", function(c)
 --     c:emit_signal("request::activate", "mouse_enter", {raise = vi_focus})
@@ -799,5 +798,7 @@ end)
 beautiful.useless_gap = 5
 
 -- Autostart
+--awful.spawn.with_shell("nitrogen --set-zoom-fill --random ~/Images/wallpaper")
+awful.spawn.with_shell("feh --bg-fill --randomize ~/Images/wallpaper/*")
 awful.spawn.with_shell("picom --experimental-backends")
 awful.spawn.with_shell("ibus-daemon -drxR")
