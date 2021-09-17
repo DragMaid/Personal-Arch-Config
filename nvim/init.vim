@@ -53,11 +53,6 @@ source $HOME/.config/nvim/keys/floaterm-config.vim
 source $HOME/.config/nvim/keys/lualine-config.vim
 source $HOME/.config/nvim/keys/flutter-config.vim
 source $HOME/.config/nvim/keys/ranger-nvim-config.vim
-<<<<<<< HEAD
 source $HOME/.config/nvim/keys/indentline-config.vim
 source $HOME/.config/nvim/keys/neovim-config.vim
 
-=======
-
-let g:indentLine_enabled = 1
->>>>>>> parent of 6bbba0d (Fixed nvim indent bug & added additional tab key bindings)

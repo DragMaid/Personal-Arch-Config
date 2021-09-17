@@ -107,7 +107,28 @@ local editor       = os.getenv("EDITOR") or "nvim"
 local browser      = "firefox"
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "code", "web", "study", "music", "other" }
+awful.util.tagnames = {}
+awful.tag.add("code", {
+    layout = awful.layout.suit.tile,
+    screen = s,
+})
+awful.tag.add("web", {
+    layout = awful.layout.suit.max,
+    screen = s,
+})
+awful.tag.add("study", {
+    layout = lain.layout.cascade,
+    screen = s,
+})
+awful.tag.add("music", {
+    layout = awful.layout.suit.max,
+    screen = s,
+})
+awful.tag.add("other", {
+    layout = lain.layout.termfair,
+    screen = s,
+})
+
 awful.layout.layouts = {
     awful.layout.suit.tile,
     -- awful.layout.suit.tile.left,
@@ -117,6 +138,7 @@ awful.layout.layouts = {
     --awful.layout.suit.fair.horizontal,
     -- awful.layout.suit.spiral,
     --awful.layout.suit.spiral.dwindle,
+    awful.layout.suit.floating,
     awful.layout.suit.max,
     -- awful.layout.suit.max.fullscreen,
     -- awful.layout.suit.magnifier,
@@ -125,8 +147,8 @@ awful.layout.layouts = {
     --awful.layout.suit.corner.sw,
     --awful.layout.suit.corner.se,
     lain.layout.cascade,
-    awful.layout.suit.max,
-    lain.layout.termfair.center,
+    --awful.layout.suit.max,
+    --lain.layout.termfair.center,
     --lain.layout.cascade.tile,
     --lain.layout.centerwork,
     --lain.layout.centerwork.horizontal,
@@ -273,13 +295,13 @@ globalkeys = mytable.join(
               {description = "view  previous nonempty", group = "tag"}),
 
     -- Default client focus
-    awful.key({ altkey,           }, "j",
+    awful.key({ altkey,           }, "Tab",
         function ()
             awful.client.focus.byidx( 1)
         end,
         {description = "focus next by index", group = "client"}
     ),
-    awful.key({ altkey,           }, "k",
+    awful.key({ altkey, "Shift"     }, "Tab",
         function ()
             awful.client.focus.byidx(-1)
         end,
@@ -677,6 +699,17 @@ awful.rules.rules = {
     { rule = { class = "Spotify" },
       properties = { screen = 1, tag = "music" } },
 
+    -- Set current tag layout to max
+    { rule = { class = "Gpicview" },
+      callback = function(c)
+	awful.layout.set(awful.layout.suit.max)
+    end },
+
+    { rule = { class = "vlc" },
+      callback = function(c)
+	awful.layout.set(awful.layout.suit.max)
+    end },
+
     -- Floating clients.
     { rule_any = {
         instance = {
@@ -796,6 +829,9 @@ client.connect_signal("manage", function (c)
 end)
 --Gaps
 beautiful.useless_gap = 5
+
+-- Default layout position
+
 
 -- Autostart
 --awful.spawn.with_shell("nitrogen --set-zoom-fill --random ~/Images/wallpaper")
