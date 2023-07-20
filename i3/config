@@ -9,6 +9,7 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+########################################### System default configuration #################################################
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -18,7 +19,6 @@ set $mod Mod4
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVuSansMono 10
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
@@ -35,7 +35,6 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
-
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
@@ -50,14 +49,6 @@ floating_modifier $mod
 # or left-clicking anywhere into the window while holding the floating modifier.
 # tiling_drag modifier titlebar
 
-# start a terminal
-bindsym $mod+Return exec alacritty
-
-# kill focused window
-bindsym $mod+Shift+q kill
-
-# start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -113,9 +104,6 @@ bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
-
-# Mod-tab like behavior
-bindsym $mod+Tab exec /home/jakekato/.config/i3/bin/alt-tab.py next current
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -182,15 +170,10 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-# bar {
-#        status_command i3status
-# }
 
-# User defined custom configuration
+######################################## User defined custom configuration ###############################################
 
-# Bar 
+# i3 status bar configuration
 bar {
   i3bar_command i3bar
   status_command SCRIPT_DIR=/home/jakekato/.config/i3blocks/scripts i3blocks
@@ -214,17 +197,35 @@ bar {
   }
 }
 
-
-
 # Keyboard binding
+
+# Firefox binding
 bindsym $mod+b exec firefox
+
+# Flameshot take screenshot of the current active screen
 bindsym $mod+Shift+p exec flameshot screen -p ~/Images/screenshots -d 0
+
+# Flameshot take screenshot via GUI region select
 bindsym $mod+p exec flameshot gui -p ~/Images/screenshots
+
+# start a terminal
+bindsym $mod+Return exec alacritty
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# start dmenu (a program launcher)
+bindsym $mod+d exec --no-startup-id dmenu_run
+
+# Mod-tab like behavior
+bindsym $mod+Tab exec /home/jakekato/.config/i3/bin/alt-tab.py next current
 
 # Instance binding
 assign [class="firefox"] 2:web
-exec_always --no-startup-id picom
 for_window [instance="Android Emulator - Pixel_2_API_30:5554"] floating enable
+
+# Setting default font
+font pango:DejaVuSansMono 10
 
 # Boder
 default_border pixel 2
@@ -233,14 +234,8 @@ gaps inner 7
 # Focus
 focus_follows_mouse no
 
+# Startup executions
 exec_always --no-startup-id picom
-exec_always --no-startup-id feh --bg-fill /home/jakekato/Pictures/Wallpapers/default.png
+exec_always --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/default.png
 exec_always --no-startup-id flameshot
 exec_always --no-startup-id /usr/bin/lxqt-policykit-agent
-
-bindsym $mod+Ctrl+Right resize shrink width 1 px or 1 ppt
-bindsym $mod+Ctrl+Up resize grow height 1 px or 1 ppt
-bindsym $mod+Ctrl+Down resize shrink height 1 px or 1 ppt
-bindsym $mod+Ctrl+Left resize grow width 1 px or 1 ppt
-
-#bindsym $mod+Shift+z [workspace="__focused__"] kill; exec /home/jakekato/.config/i3/flutterenv.sh

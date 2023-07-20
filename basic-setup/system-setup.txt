@@ -1,0 +1,9 @@
+### A GUIDE TO SETTING UP KATO WORKSTATION ###
+1. Download the ArcolinuxD iso from its website
+2. Flash / Burn the iso into a portable USB via Rufus (window) or Balena-Etcher (Linux)
+3. Plug the USB into the laptop and access boot menu to start the install medium
+4. 
+5. Wait for the installation to complete
+6. Reboot the machine
+7. Instlall your window manager (default: i3-wm and awesomewm)
+
